@@ -16,7 +16,7 @@ module.exports.redirect = (event, context, callback) => {
         if(!!url) {
           return callback(null, {
             statusCode: 301,
-            headers: { //TODO: pull location url from DynamoDB using id
+            headers: {
               'Location': url
             }
           });
