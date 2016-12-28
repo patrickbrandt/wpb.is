@@ -40,9 +40,7 @@ function getUrl(id) {
   return new Promise((resolve, reject) => {
     let params = {
       TableName: URLS_TABLE,
-      Key: {
-        Id: id
-      }
+      Key: { Id: id }
     };
 
     docClient.get(params, (err, data) => {
