@@ -26,7 +26,7 @@ provider:
       Resource: "*"
 
 functions:
-  hello:
+  redirect:
     handler: handler.redirect
     events:
       - http:
