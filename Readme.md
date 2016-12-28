@@ -20,4 +20,5 @@ I manage vanity URLs with the DynamoDB portal like this:
 
 * [wpb.is/linkedin](https://wpb.is/linkedin)
 * [wpb.is/github](https://wpb.is/github)
+* [wpb.is/resume](https://wpb.is/resume)
 * [wpb.is/this](https://wpb.is/this)
