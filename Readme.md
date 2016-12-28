@@ -25,4 +25,4 @@ I manage vanity URLs with the DynamoDB portal like this:
 
 ## A little more info
 
-I registered wpb.is with [ISNIC](https://www.isnic.is/en/) and then delegated DNS to Route53 (Route53 has the SOA record - the AWS Name Servers are mapped to the DNS entry at ISNIC). Once done, I used API Gateway [Custom Domains](http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html) and Route53 to create an Alias record.
+I registered wpb.is with [ISNIC](https://www.isnic.is/en/) and then delegated DNS resolution to Route53 (Route53 has the SOA record - the AWS Name Servers are mapped to the DNS entry at ISNIC). Once done, I used API Gateway [Custom Domains](http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html) and Route53 to create an Alias record.
