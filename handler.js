@@ -23,7 +23,6 @@ module.exports.redirect = (event, context, callback) => {
         }
 
         callback(null, noRedirect);
-
       })
       .catch(err => {
         console.log(err);
