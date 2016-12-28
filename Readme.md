@@ -12,7 +12,7 @@ I've made a simple vanity URL service for myself (wpb.is) using the following:
 
 I deploy like this: ```sls deploy```
 
-I manage vanity URLs with the DynamoDB portal:
+I manage vanity URLs with the DynamoDB portal like this:
 
 ![image](https://cloud.githubusercontent.com/assets/11197026/21528379/173305dc-cd00-11e6-8475-4d9fdcba0387.png)
 
