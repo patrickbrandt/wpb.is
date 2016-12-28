@@ -15,8 +15,14 @@ service: wpb-is
 provider:
   name: aws
   runtime: nodejs4.3
+  stage: v1
   profile: personal-account-admin
   region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "*"
 
 functions:
   hello:
@@ -28,3 +34,31 @@ functions:
       - http:
           path: /{id}
           method: GET
+
+resources:
+  Resources:
+    UrlsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+        - AttributeName: Url
+          AttributeType: S
+        - AttributeName: Id
+          AttributeType: S
+        GlobalSecondaryIndexes:
+        - IndexName: Url-index
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            WriteCapacityUnits: 1
+            ReadCapacityUnits: 5
+          KeySchema:
+          - KeyType: HASH
+            AttributeName: Url
+        ProvisionedThroughput:
+          WriteCapacityUnits: 1
+          ReadCapacityUnits: 5
+        TableName: Urls
+        KeySchema:
+        - KeyType: HASH
+          AttributeName: Id
