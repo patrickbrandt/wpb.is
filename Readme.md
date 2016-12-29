@@ -6,7 +6,7 @@ I've made a simple vanity URL service for myself (wpb.is) using the following:
 * [AWS Lambda](https://aws.amazon.com/lambda/)
 * [DynamoDB](https://aws.amazon.com/dynamodb/)
 * [Route53](https://aws.amazon.com/route53/)
-* [The Serverless Development Framework](https://serverless.com/)
+* [The Serverless Framework](https://serverless.com/)
 
 ##Make it easy
 
