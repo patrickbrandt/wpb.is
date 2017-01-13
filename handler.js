@@ -4,9 +4,15 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 const URLS_TABLE = 'Urls';
 
 module.exports.redirect = (event, context, callback) => {
-  let pathParams = event.pathParameters;
-  let noRedirect = {
+  const pathParams = event.pathParameters;
+  const noCache = {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Pragma: 'no-cache',
+    Expires: 0
+  };
+  const noRedirect = {
     statusCode: 200,
+    headers: noCache,
     body: 'nothing to see here!'
   };
 
@@ -17,7 +23,10 @@ module.exports.redirect = (event, context, callback) => {
           return callback(null, {
             statusCode: 301,
             headers: {
-              'Location': url
+              'Cache-Control': noCache['Cache-Control'],
+              Pragma: noCache.Pragma,
+              Expires: noCache.Expires,
+              Location: url
             }
           });
         }
@@ -38,7 +47,7 @@ module.exports.redirect = (event, context, callback) => {
 
 function getUrl(id) {
   return new Promise((resolve, reject) => {
-    let params = {
+    const params = {
       TableName: URLS_TABLE,
       Key: { Id: id }
     };
