@@ -12,6 +12,8 @@
 # Happy Coding!
 
 service: wpb-is
+custom:
+  wpbis_bucket: wpb.is.home
 provider:
   name: aws
   runtime: nodejs4.3
@@ -24,12 +26,16 @@ provider:
       Action:
         - "dynamodb:*"
       Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+      Resource: arn:aws:s3:::${self:custom.wpbis_bucket}/*
 
 functions:
   redirect:
     handler: handler.redirect
     environment: # Function level environment variables
-      wpbis_bucket: wpb.is.home
+      wpbis_bucket: ${self:custom.wpbis_bucket}
     events:
       - http:
           path: /
