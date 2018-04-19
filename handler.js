@@ -1,4 +1,3 @@
-'use strict';
 
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -50,7 +49,7 @@ function getUrl(id) {
   return new Promise((resolve, reject) => {
     const params = {
       TableName: URLS_TABLE,
-      Key: { Id: id }
+      Key: { Id: id.toLowerCase() }
     };
 
     docClient.get(params, (err, data) => {
@@ -60,4 +59,3 @@ function getUrl(id) {
     });
   });
 }
-
