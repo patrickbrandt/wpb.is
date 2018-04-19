@@ -18,6 +18,7 @@ module.exports.redirect = (event, context, callback) => {
   }
 
   const id = pathParams.id.toLowerCase();
+  // do something special for yours truly - serve home site
   if (id === 'patrickbrandt') {
     const params = {
       Bucket: process.env.wpbis_bucket,
@@ -75,7 +76,6 @@ function errorResponse() {
 }
 
 function redirectResponse(url) {
-
   return {
     statusCode: 301,
     headers: Object.assign({ Location: url }, noCacheHeaders()),
