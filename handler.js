@@ -22,7 +22,7 @@ module.exports.redirect = (event, context, callback) => {
   if (id === 'patrickbrandt') {
     const params = {
       Bucket: process.env.wpbis_bucket,
-      Key: "index.html"
+      Key: 'index.html'
      };
      s3.getObject(params).promise()
       .then(data => {
