@@ -7,19 +7,14 @@ const URLS_TABLE = 'Urls';
 
 module.exports.redirect = (event, context, callback) => {
   const pathParams = event.pathParameters;
-  const noCache = {
-    'Cache-Control': 'no-cache, no-store, must-revalidate',
-    Pragma: 'no-cache',
-    Expires: 0
-  };
   const noRedirect = {
     statusCode: 200,
-    headers: noCache,
+    headers: noCacheHeaders(),
     body: 'nothing to see here!'
   };
 
   if (!pathParams || !pathParams.id) {
-    return callback(null, noRedirect);
+    return callback(null, redirectResponse('https://wpb.is/PatrickBrandt'));
   }
 
   const id = pathParams.id.toLowerCase();
@@ -41,27 +36,19 @@ module.exports.redirect = (event, context, callback) => {
       })
       .catch(err => {
         console.log(err);
-        callback(null, getError());
+        callback(null, errorResponse());
       });
   } else {
     getUrl(id)
       .then(url => {
         if(!!url) {
-          return callback(null, {
-            statusCode: 301,
-            headers: {
-              'Cache-Control': noCache['Cache-Control'],
-              Pragma: noCache.Pragma,
-              Expires: noCache.Expires,
-              Location: url,
-            }
-          });
+          return callback(null, redirectResponse(url));
         }
         callback(null, noRedirect);
       })
       .catch(err => {
         console.log(err);
-        callback(null, getError());
+        callback(null, errorResponse());
       });
   }
 };
@@ -80,9 +67,25 @@ function getUrl(id) {
   });
 }
 
-function getError() {
+function errorResponse() {
   return  {
     statusCode: 500,
     body: 'something bad happened',
+  }
+}
+
+function redirectResponse(url) {
+
+  return {
+    statusCode: 301,
+    headers: Object.assign({ Location: url }, noCacheHeaders()),
+  };
+}
+
+function noCacheHeaders() {
+  return {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Pragma: 'no-cache',
+    Expires: 0,
   }
 }
