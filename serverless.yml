@@ -28,6 +28,8 @@ provider:
 functions:
   redirect:
     handler: handler.redirect
+    environment: # Function level environment variables
+      wpbis_bucket: wpb.is.home
     events:
       - http:
           path: /
