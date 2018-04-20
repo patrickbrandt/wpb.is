@@ -14,6 +14,7 @@
 service: wpb-is
 custom:
   wpbis_bucket: wpb.is.home
+  urls_table: Urls
 provider:
   name: aws
   runtime: nodejs4.3
@@ -25,7 +26,7 @@ provider:
     - Effect: "Allow"
       Action:
         - "dynamodb:*"
-      Resource: "*"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.urls_table}"
     - Effect: "Allow"
       Action:
         - "s3:GetObject"
@@ -34,8 +35,9 @@ provider:
 functions:
   redirect:
     handler: handler.redirect
-    environment: # Function level environment variables
+    environment:
       wpbis_bucket: ${self:custom.wpbis_bucket}
+      urls_table: ${self:custom.urls_table}
     events:
       - http:
           path: /

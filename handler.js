@@ -3,7 +3,6 @@
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient();
 const s3 = new AWS.S3();
-const URLS_TABLE = 'Urls';
 
 module.exports.redirect = (event, context, callback) => {
   const pathParams = event.pathParameters;
@@ -57,7 +56,7 @@ module.exports.redirect = (event, context, callback) => {
 function getUrl(id) {
   return new Promise((resolve, reject) => {
     const params = {
-      TableName: URLS_TABLE,
+      TableName: process.env.urls_table,
       Key: { Id: id },
     };
     docClient.get(params, (err, data) => {
