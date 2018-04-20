@@ -69,7 +69,7 @@ resources:
         ProvisionedThroughput:
           WriteCapacityUnits: 1
           ReadCapacityUnits: 5
-        TableName: Urls
+        TableName: ${self:custom.urls_table}
         KeySchema:
         - KeyType: HASH
           AttributeName: Id
