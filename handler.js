@@ -1,4 +1,3 @@
-'use strict';
 
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -77,7 +76,7 @@ function errorResponse() {
 function redirectResponse(url) {
   return {
     statusCode: 301,
-    headers: Object.assign({ Location: url }, noCacheHeaders()),
+    headers: { Location: url, ...noCacheHeaders()},
   };
 }
 
