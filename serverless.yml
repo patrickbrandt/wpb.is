@@ -39,12 +39,8 @@ functions:
       wpbis_bucket: ${self:custom.wpbis_bucket}
       urls_table: ${self:custom.urls_table}
     events:
-      - http:
-          path: /
-          method: GET
-      - http:
-          path: /{id}
-          method: GET
+      - http: GET /
+      - http: 'GET {id+}'
 
 resources:
   Resources:
