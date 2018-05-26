@@ -60,7 +60,7 @@ function getUrl(id) {
     };
     docClient.get(params, (err, data) => {
       if (err) return reject(err);
-      let url = data.Item ? data.Item.Url : undefined;
+      const url = data.Item ? data.Item.Url : undefined;
       resolve(url);
     });
   });
