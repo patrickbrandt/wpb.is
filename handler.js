@@ -70,7 +70,7 @@ function errorResponse() {
   return  {
     statusCode: 500,
     body: 'something bad happened',
-  }
+  };
 }
 
 function redirectResponse(url) {
@@ -85,5 +85,5 @@ function noCacheHeaders() {
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     Pragma: 'no-cache',
     Expires: 0,
-  }
+  };
 }
