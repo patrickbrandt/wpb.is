@@ -48,20 +48,8 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-        - AttributeName: Url
-          AttributeType: S
         - AttributeName: Id
           AttributeType: S
-        GlobalSecondaryIndexes:
-        - IndexName: Url-index
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            WriteCapacityUnits: 1
-            ReadCapacityUnits: 5
-          KeySchema:
-          - KeyType: HASH
-            AttributeName: Url
         ProvisionedThroughput:
           WriteCapacityUnits: 1
           ReadCapacityUnits: 5
