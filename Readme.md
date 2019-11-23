@@ -17,7 +17,7 @@ I've made a simple vanity URL service for myself (wpb.is) using the following:
 
 ## Make it easy
 
-I deploy like this: ```sls deploy```
+First I ```npm install``` and then I deploy like this: ```sls deploy```
 
 I manage vanity URLs with the DynamoDB portal like this:
 
