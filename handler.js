@@ -20,12 +20,12 @@ module.exports.redirect = async (event, context, callback) => {
   try {
     // do something special for yours truly - serve home site
     if (id === 'patrickbrandt') {
-      callback(null, contentResponse(getFileContent('index.html'), 'text/html')); 
+      callback(null, contentResponse(await getFileContent('index.html'), 'text/html')); 
     } else if (id === 'robots.txt') {
-      callback(null, contentResponse(getFileContent(id), 'text/plain'));
+      callback(null, contentResponse(await getFileContent(id), 'text/plain'));
     } else {
       const url = await getUrl(id);
-      if(!!url) {
+      if(url) {
         return callback(null, redirectResponse(url));
       }
       callback(null, noRedirect);    

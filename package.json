@@ -1,0 +1,27 @@
+{
+  "name": "redirect",
+  "version": "1.0.0",
+  "description": "I've made a simple vanity URL service for myself (wpb.is) using the following:",
+  "main": "handler.js",
+  "dependencies": {
+    "serverless-offline": "^3.24.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.0",
+    "serverless": "^1.58.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "deploy": "sls deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickbrandt/wpb.is.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patrickbrandt/wpb.is/issues"
+  },
+  "homepage": "https://github.com/patrickbrandt/wpb.is#readme"
+}
