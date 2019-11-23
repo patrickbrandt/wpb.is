@@ -12,6 +12,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "predeploy": "npm run lint",
     "deploy": "sls deploy"
   },
   "repository": {
