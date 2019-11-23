@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "I've made a simple vanity URL service for myself (wpb.is) using the following:",
   "main": "handler.js",
-  "dependencies": {
-    "serverless-offline": "^3.24.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^6.7.0",
     "serverless": "^1.58.0"
