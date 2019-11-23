@@ -1,9 +1,10 @@
 
 const AWS = require('aws-sdk');
+
 const docClient = new AWS.DynamoDB.DocumentClient();
 const s3 = new AWS.S3();
 
-module.exports.redirect = (event, context, callback) => {
+module.exports.redirect = async (event, context, callback) => {
   const pathParams = event.pathParameters;
   const noRedirect = {
     statusCode: 200,
@@ -16,41 +17,43 @@ module.exports.redirect = (event, context, callback) => {
   }
 
   const id = pathParams.id.toLowerCase();
-  // do something special for yours truly - serve home site
-  if (id === 'patrickbrandt') {
-    const params = {
-      Bucket: process.env.wpbis_bucket,
-      Key: 'index.html'
-    };
-    s3.getObject(params).promise()
-      .then(data => {
-        const response = {
-          statusCode: 200,
-          headers: {
-            'Content-Type': 'text/html',
-          },
-          body: data.Body.toString(),
-        };
-        callback(null, response);
-      })
-      .catch(err => {
-        console.log(err);
-        callback(null, errorResponse());
-      });
-  } else {
-    getUrl(id)
-      .then(url => {
-        if(!!url) {
-          return callback(null, redirectResponse(url));
-        }
-        callback(null, noRedirect);
-      })
-      .catch(err => {
-        console.log(err);
-        callback(null, errorResponse());
-      });
-  }
+  try {
+    // do something special for yours truly - serve home site
+    if (id === 'patrickbrandt') {
+      callback(null, contentResponse(getFileContent('index.html'), 'text/html')); 
+    } else if (id === 'robots.txt') {
+      callback(null, contentResponse(getFileContent(id), 'text/plain'));
+    } else {
+      const url = await getUrl(id);
+      if(!!url) {
+        return callback(null, redirectResponse(url));
+      }
+      callback(null, noRedirect);    
+    }
+  } catch(err) {
+    console.log(err);
+    callback(null, errorResponse());
+  }  
 };
+
+function contentResponse(content, contentType) {
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': contentType,
+    },
+    body: content,
+  };
+}
+
+async function getFileContent(fileName) {
+  const params = {
+    Bucket: process.env.wpbis_bucket,
+    Key: fileName,
+  };
+  const data = await s3.getObject(params).promise();
+  return data.Body.toString();
+}
 
 function getUrl(id) {
   return new Promise((resolve, reject) => {
