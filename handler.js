@@ -55,18 +55,14 @@ async function getFileContent(fileName) {
   return data.Body.toString();
 }
 
-function getUrl(id) {
-  return new Promise((resolve, reject) => {
-    const params = {
-      TableName: process.env.urls_table,
-      Key: { Id: id },
-    };
-    docClient.get(params, (err, data) => {
-      if (err) return reject(err);
-      const url = data.Item ? data.Item.Url : undefined;
-      resolve(url);
-    });
-  });
+async function getUrl(id) {
+  const params = {
+    TableName: process.env.urls_table,
+    Key: { Id: id },
+  };
+
+  const data = await docClient.get(params).promise();
+  return data.Item ? data.Item.Url : undefined;
 }
 
 function errorResponse() {
