@@ -54,7 +54,7 @@ async function getFileContent(fileName) {
     Key: fileName,
   };
   const data = await s3.send(new GetObjectCommand(params));
-  return new TextDecoder().decode(await data.Body.transformToByteArray());
+  return await data.Body.transformToString();
 }
 
 async function getUrl(id) {
