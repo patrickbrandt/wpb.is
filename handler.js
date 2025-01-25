@@ -1,8 +1,10 @@
+const { DynamoDBClient, GetItemCommand } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 
-const AWS = require('aws-sdk');
-
-const docClient = new AWS.DynamoDB.DocumentClient();
-const s3 = new AWS.S3();
+const ddbClient = new DynamoDBClient();
+const docClient = DynamoDBDocumentClient.from(ddbClient);
+const s3 = new S3Client();
 
 module.exports.redirect = async (event, context, callback) => {
   const pathParams = event.pathParameters;
@@ -51,18 +53,18 @@ async function getFileContent(fileName) {
     Bucket: process.env.wpbis_bucket,
     Key: fileName,
   };
-  const data = await s3.getObject(params).promise();
-  return data.Body.toString();
+  const data = await s3.send(new GetObjectCommand(params));
+  return new TextDecoder().decode(await data.Body.transformToByteArray());
 }
 
 async function getUrl(id) {
   const params = {
     TableName: process.env.urls_table,
-    Key: { Id: id },
+    Key: { Id: { S: id } },
   };
 
-  const data = await docClient.get(params).promise();
-  return data.Item ? data.Item.Url : undefined;
+  const data = await ddbClient.send(new GetItemCommand(params));
+  return data.Item ? data.Item.Url.S : undefined;
 }
 
 function errorResponse() {
