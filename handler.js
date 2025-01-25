@@ -1,5 +1,5 @@
-const { DynamoDBClient, GetItemCommand } = require('@aws-sdk/client-dynamodb');
-const { DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
 const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 
 const ddbClient = new DynamoDBClient();
@@ -60,11 +60,11 @@ async function getFileContent(fileName) {
 async function getUrl(id) {
   const params = {
     TableName: process.env.urls_table,
-    Key: { Id: { S: id } },
+    Key: { Id: id },
   };
 
-  const data = await ddbClient.send(new GetItemCommand(params));
-  return data.Item ? data.Item.Url.S : undefined;
+  const data = await docClient.send(new GetCommand(params));
+  return data.Item ? data.Item.Url : undefined;
 }
 
 function errorResponse() {
