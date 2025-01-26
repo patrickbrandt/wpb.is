@@ -22,7 +22,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs20.x
-  stage: v1
+  stage: v1 # change to "dev" for non-prod deployments
   profile: personal-account-admin
   region: us-east-1
   memorySize: 512
