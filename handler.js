@@ -1,12 +1,12 @@
-const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
-const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
-const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 
 const ddbClient = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(ddbClient);
 const s3 = new S3Client();
 
-module.exports.redirect = async (event, context, callback) => {
+export const redirect = async (event, context, callback) => {
   const pathParams = event.pathParameters;
   const noRedirect = {
     statusCode: 200,

@@ -1,6 +1,7 @@
 {
   "name": "redirect",
   "version": "1.0.0",
+  "type": "module",
   "description": "I've made a simple vanity URL service for myself (wpb.is) using the following:",
   "main": "handler.js",
   "dependencies": {
@@ -9,6 +10,7 @@
     "@aws-sdk/lib-dynamodb": "^3.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
     "eslint": "^9.19.0",
     "serverless": "^3.38.0"
   },
