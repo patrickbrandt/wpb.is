@@ -17,7 +17,7 @@ frameworkVersion: '3'
 
 custom:
   wpbis_bucket: wpb.is.home
-  urls_table: Urls
+  urls_table: Urls-${self:provider.stage}
 
 provider:
   name: aws
@@ -45,12 +45,8 @@ functions:
       wpbis_bucket: ${self:custom.wpbis_bucket}
       urls_table: ${self:custom.urls_table}
     events:
-      - httpApi:
-          method: GET
-          path: /
-      - httpApi:
-          method: GET
-          path: /{id+}
+      - http: GET /
+      - http: 'GET /{id+}'
 
 resources:
   Resources:
