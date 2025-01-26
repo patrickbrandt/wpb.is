@@ -19,7 +19,6 @@ package:
   patterns:
     - '!node_modules/**'
     - '!.git/**'
-    - handler.js
 
 custom:
   wpbis_bucket: wpb.is.home
