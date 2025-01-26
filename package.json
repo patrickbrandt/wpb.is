@@ -9,7 +9,7 @@
     "@aws-sdk/lib-dynamodb": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^6.7.0",
+    "eslint": "^9.19.0",
     "serverless": "^3.38.0"
   },
   "scripts": {
