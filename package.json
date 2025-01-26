@@ -15,7 +15,9 @@
   "scripts": {
     "lint": "eslint .",
     "predeploy": "npm run lint",
-    "deploy": "sls deploy"
+    "deploy": "sls deploy",
+    "deploy-dev": "sls deploy --stage dev",
+    "deploy-v1": "sls deploy --stage v1"
   },
   "repository": {
     "type": "git",

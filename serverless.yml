@@ -27,7 +27,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs20.x
-  stage: dev # change to "v1" for prod deployments
+  stage: ${opt:stage, 'dev'}  # default to dev if no stage specified
   profile: personal-account-admin
   region: us-east-1
   memorySize: 512
