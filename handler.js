@@ -1,8 +1,10 @@
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 
-const AWS = require('aws-sdk');
-
-const docClient = new AWS.DynamoDB.DocumentClient();
-const s3 = new AWS.S3();
+const ddbClient = new DynamoDBClient();
+const docClient = DynamoDBDocumentClient.from(ddbClient);
+const s3 = new S3Client();
 
 module.exports.redirect = async (event, context, callback) => {
   const pathParams = event.pathParameters;
@@ -51,8 +53,8 @@ async function getFileContent(fileName) {
     Bucket: process.env.wpbis_bucket,
     Key: fileName,
   };
-  const data = await s3.getObject(params).promise();
-  return data.Body.toString();
+  const data = await s3.send(new GetObjectCommand(params));
+  return await data.Body.transformToString();
 }
 
 async function getUrl(id) {
@@ -61,7 +63,7 @@ async function getUrl(id) {
     Key: { Id: id },
   };
 
-  const data = await docClient.get(params).promise();
+  const data = await docClient.send(new GetCommand(params));
   return data.Item ? data.Item.Url : undefined;
 }
 
