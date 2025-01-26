@@ -60,6 +60,7 @@ resources:
           WriteCapacityUnits: 1
           ReadCapacityUnits: 5
         TableName: ${self:custom.urls_table}
+        DeletionProtectionEnabled: true
         KeySchema:
           - KeyType: HASH
             AttributeName: Id
