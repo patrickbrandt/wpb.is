@@ -60,7 +60,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: Id
             AttributeType: S
-        BillingMode: PAY_PER_REQUEST
+        ProvisionedThroughput:
+          WriteCapacityUnits: 1
+          ReadCapacityUnits: 5
         TableName: ${self:custom.urls_table}
         KeySchema:
           - KeyType: HASH
